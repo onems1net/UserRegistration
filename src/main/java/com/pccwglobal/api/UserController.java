@@ -1,5 +1,6 @@
 package com.pccwglobal.api;
 
+import com.pccwglobal.exception.UserAlreadyExistException;
 import com.pccwglobal.exception.UserNotFoundException;
 import com.pccwglobal.model.User;
 import com.pccwglobal.service.EmailService;
@@ -68,7 +69,13 @@ public class UserController {
 
     @PostMapping("/add")
     public User addUser(@RequestBody User user) {
-        User newUser= userService.saveUser(user);
+        String email = user.getEmail();
+
+        userService.findUserByEmail(email).ifPresent(existingUser -> {
+            throw new UserAlreadyExistException(email);
+        });
+
+        User newUser = userService.saveUser(user);
 
         emailService.sendEmail(
                 user.getEmail(),
@@ -139,7 +146,7 @@ public class UserController {
 
     @DeleteMapping("/delete/{id}")
     void deleteUser(@PathVariable("id") long id) {
-        User user=userService.findUserById(id).orElseThrow(() -> new UserNotFoundException(id));
+        User user = userService.findUserById(id).orElseThrow(() -> new UserNotFoundException(id));
         userService.deleteUser(user);
     }
 }
