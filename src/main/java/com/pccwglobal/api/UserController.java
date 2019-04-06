@@ -1,22 +1,14 @@
 package com.pccwglobal.api;
 
-import com.google.common.collect.Iterables;
 import com.pccwglobal.exception.UserNotFoundException;
 import com.pccwglobal.model.User;
 import com.pccwglobal.service.EmailService;
 import com.pccwglobal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.validation.Valid;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/user/")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -24,7 +16,7 @@ public class UserController {
     @Autowired
     private EmailService emailService;
 
-    @GetMapping("/")
+    /*@GetMapping("/")
     public ModelAndView showHomePage(Model model) {
         ModelAndView modelAndView = new ModelAndView();
         Iterable<User> users = userService.findAllUsers();
@@ -34,16 +26,21 @@ public class UserController {
 
         modelAndView.setViewName("index");
         return modelAndView;
+    }*/
+
+    @GetMapping("/list")
+    Iterable<User> findAllUsers() {
+        return userService.findAllUsers();
     }
 
-    @GetMapping("/signup")
+    /*@GetMapping("/signup")
     public ModelAndView showSignUpForm(User user) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("add-user");
         return modelAndView;
-    }
+    }*/
 
-    @PostMapping("/adduser")
+    /*@PostMapping("/adduser")
     public ModelAndView addUser(@Valid User user, BindingResult bindingResult, Model model) {
         ModelAndView modelAndView = new ModelAndView();
 
@@ -67,9 +64,21 @@ public class UserController {
         }
 
         return modelAndView;
+    }*/
+
+    @PostMapping("/add")
+    public User addUser(@RequestBody User user) {
+        User newUser= userService.saveUser(user);
+
+        emailService.sendEmail(
+                user.getEmail(),
+                "No-Reply: Registration confirmed",
+                "Hello " + user.getFirstName() + " " + user.getLastName() + ", you have successfully registered!");
+
+        return newUser;
     }
 
-    @GetMapping("/edit/{id}")
+    /*@GetMapping("/edit/{id}")
     public ModelAndView showUpdateForm(@PathVariable("id") long id, Model model) {
         ModelAndView modelAndView = new ModelAndView();
         User user = userService.findUserById(id).orElseThrow(() -> new UserNotFoundException(id));
@@ -91,9 +100,29 @@ public class UserController {
             modelAndView.setViewName("index");
         }
         return modelAndView;
+    }*/
+
+    @GetMapping("/find/{id}")
+    public User findUser(@PathVariable("id") long id) {
+        return userService.findUserById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 
-    @GetMapping("/delete/{id}")
+    @PutMapping("/update/{id}")
+    public User updateUser(@RequestBody User newUser, @PathVariable("id") long id) {
+        return userService.findUserById(id)
+                .map(user -> {
+                    user.setFirstName(newUser.getFirstName());
+                    user.setLastName(newUser.getLastName());
+                    user.setEmail(newUser.getEmail());
+                    return userService.saveUser(user);
+                })
+                .orElseGet(() -> {
+                    newUser.setId(id);
+                    return userService.saveUser(newUser);
+                });
+    }
+
+    /*@GetMapping("/delete/{id}")
     public ModelAndView deleteUser(@PathVariable("id") long id, Model model) {
         ModelAndView modelAndView = new ModelAndView();
         User user = userService.findUserById(id).orElseThrow(() -> new UserNotFoundException(id));
@@ -106,5 +135,11 @@ public class UserController {
 
         modelAndView.setViewName("index");
         return modelAndView;
+    }*/
+
+    @DeleteMapping("/delete/{id}")
+    void deleteUser(@PathVariable("id") long id) {
+        User user=userService.findUserById(id).orElseThrow(() -> new UserNotFoundException(id));
+        userService.deleteUser(user);
     }
 }
