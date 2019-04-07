@@ -8,25 +8,29 @@ Check out the project
 
 2. Go to the project base directory
 
-3. Run the shell script using following command to build the docker image for the application jar file and to run the application in docker container under 8085 port
+3. Application jar is already packaged under the target directory for Google Drive resource. If checking out from GitHub then build and package it by running following command under project base directory
+
+mvn clean package
+
+4. Run this shell script using following command to build the docker image for the application jar file and to run the application in docker container under 8085 port
 
 ./run.sh
 
 4. Application REST endpoints will be available under the URI
 
-List all registered users: http://localhost:8085/user/list
+a. List all registered users (method GET): http://localhost:8085/user/list
 
-Register an user: http://localhost:8085/user/add
+Register an user (requires JSON body to POST): http://localhost:8085/user/add
+e.g. JSON body
+{"firstName":"Animesh","lastName":"Mondal","email":"onems1net@gmail.com"}
 
-Search an user: http://localhost:8085/user/find/{id}
+b. Search an user: http://localhost:8085/user/find/{id}
 
-Update an user details: http://localhost:8085/user/update/{id}
+c. Update an user details (requires JSON body to PUT): http://localhost:8085/user/update/{id}
+e.g. JSON body
+{"firstName":"Animesh","lastName":"Mondal","email":"animesh.mondal@tcs.com"}
 
-Delete an user: http://localhost:8085/user/delete/{id}
-
-P.S. Application jar is already packaged under the target directory. To rebuild it run following command under project base directory
-
-mvn clean install
+d. Delete an user (method DELETE): http://localhost:8085/user/delete/{id}
 
 Included features
 1. REST endpoints for user add/edit/search/list/delete facility
