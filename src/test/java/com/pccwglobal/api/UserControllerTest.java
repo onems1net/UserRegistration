@@ -1,6 +1,7 @@
 package com.pccwglobal.api;
 
 import com.pccwglobal.Application;
+import com.pccwglobal.service.EmailService;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
@@ -9,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
@@ -29,6 +31,9 @@ import static org.hamcrest.Matchers.equalTo;
 public class UserControllerTest {
     @Value("${local.server.port:-1}")
     private int port;
+
+    @MockBean
+    EmailService emailService;
 
     @PostConstruct
     @Before
