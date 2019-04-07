@@ -1,12 +1,14 @@
 package com.pccwglobal.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "user")
 public class User {
