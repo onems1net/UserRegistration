@@ -1,10 +1,10 @@
-package com.pccwglobal.api;
+package com.animesh.api;
 
-import com.pccwglobal.exception.UserAlreadyExistException;
-import com.pccwglobal.exception.UserNotFoundException;
-import com.pccwglobal.model.User;
-import com.pccwglobal.service.EmailService;
-import com.pccwglobal.service.UserService;
+import com.animesh.exception.UserAlreadyExistException;
+import com.animesh.exception.UserNotFoundException;
+import com.animesh.model.User;
+import com.animesh.service.EmailService;
+import com.animesh.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

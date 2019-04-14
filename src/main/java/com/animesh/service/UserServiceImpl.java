@@ -1,7 +1,7 @@
-package com.pccwglobal.service;
+package com.animesh.service;
 
-import com.pccwglobal.repository.UserRepository;
-import com.pccwglobal.model.User;
+import com.animesh.repository.UserRepository;
+import com.animesh.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Optional;

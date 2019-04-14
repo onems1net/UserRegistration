@@ -1,4 +1,4 @@
-package com.pccwglobal.exception;
+package com.animesh.exception;
 
 public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException(long id) {

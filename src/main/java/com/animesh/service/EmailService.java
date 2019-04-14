@@ -1,4 +1,4 @@
-package com.pccwglobal.service;
+package com.animesh.service;
 
 public interface EmailService {
     public void sendEmail(String to, String subject,String text);

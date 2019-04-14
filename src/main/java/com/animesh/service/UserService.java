@@ -1,6 +1,6 @@
-package com.pccwglobal.service;
+package com.animesh.service;
 
-import com.pccwglobal.model.User;
+import com.animesh.model.User;
 import java.util.Optional;
 
 public interface UserService {

@@ -1,6 +1,6 @@
-package com.pccwglobal.repository;
+package com.animesh.repository;
 
-import com.pccwglobal.model.User;
+import com.animesh.model.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

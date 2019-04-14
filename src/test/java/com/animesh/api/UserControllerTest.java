@@ -1,7 +1,7 @@
-package com.pccwglobal.api;
+package com.animesh.api;
 
-import com.pccwglobal.Application;
-import com.pccwglobal.service.EmailService;
+import com.animesh.Application;
+import com.animesh.service.EmailService;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;

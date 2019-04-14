@@ -1,4 +1,4 @@
-package com.pccwglobal.model;
+package com.animesh.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

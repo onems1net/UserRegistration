@@ -1,4 +1,4 @@
-package com.pccwglobal.exception;
+package com.animesh.exception;
 
 public class UserAlreadyExistException  extends RuntimeException {
     public UserAlreadyExistException(String email) {

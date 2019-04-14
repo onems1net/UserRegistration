@@ -1,4 +1,4 @@
-package com.pccwglobal.exception;
+package com.animesh.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
